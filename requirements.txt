@@ -21,5 +21,5 @@ starlette==0.27.0
 typing_extensions==4.7.1
 tzdata==2023.3
 urllib3==2.0.4
-uvicorn==0.23.2
+uvicorn==0.22
 yarg==0.1.9
