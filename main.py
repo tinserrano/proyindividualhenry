@@ -4,27 +4,10 @@ from typing import Optional
 import pandas as pd
 
 
-data = pd.read_csv("datasets/CleanDataFrame.csv")
+data = pd.read_csv("datasets/dataset.csv")
 
 app = FastAPI()
 
-class Libro(BaseModel):
- titulo: str
- autor: str
- paginas: int
- editorial: Optional[str]
-
-# @app.get("/")
-# def index():
-#  return {"message":"hola helllo worlds"}
-
-# @app.get("/libros/{id}")
-# def mostrar_libro(id: int):
-#  return {"data":id}
-
-# @app.post("/libros")
-# def insertar_libro(libro:Libro):
-#  return {"message":f"libro {libro.titulo} insertado"}
 
 
 @app.get('/peliculas_idioma/{idioma}')
@@ -92,7 +75,10 @@ def get_director(nombre_director:str):
             'peliculas':peliculas, 'anio':anio, 'retorno_pelicula':retornoPelicula, 'budget_pelicula':budget,'revenue_pelicula':revenue_pelicula}
 
 # # ML
-# @app.get('/recomendacion/{titulo}')
-# def recomendacion(titulo:str):
-#     '''Ingresas un nombre de pelicula y te recomienda las similares en una lista'''
-#     return {'lista recomendada': respuesta}
+@app.get('/recomendacion/{titulo}')
+def recomendacion(titulo:str):
+    '''Ingresas un nombre de pelicula y te recomienda las similares en una lista'''
+    data6 = data
+    indice = data6[data6.title.str.contains(titulo)].index.values
+    respuesta = data6.loc[indice, "recomendaciones"].values.tolist()
+    return {'lista recomendada': respuesta} 
